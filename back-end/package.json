@@ -1,13 +1,13 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "This is a contact management application.",
+  "description": "frontyard-assignment",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "nodemon --exec ts-node src/index.ts"
+    "start": "nodemon --exec ts-node src/index.ts"
   },
-  "author": "Tushar Agarwal",
+  "author": "Abhijeet Kumar <bloggerbkabhi@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
