@@ -3,6 +3,7 @@ import { Contact } from '../models/Contacts'
 import { useEditContactsMutation } from '../../../redux-toolkit/apiSlice';
 import { showError, showSuccess } from '../../../utils/toast';
 import { ContactFormModal } from '../../../components/modals/ContactFormModal';
+import LoadingCustomBtn from '../../../common/Loader/LoadingCustomBtn';
 
 
 interface Props {
@@ -26,10 +27,12 @@ const EditContactBtn: React.FC<Props> = ({ contactFormData }) => {
         editContact({ id: contactFormData._id, ...val })
             .unwrap()
             .then(() => {
-                showSuccess('Contact Edit Successfully');
+                showSuccess('Contact Updated Successfully');
             })
             .catch((error: any) => {
                 showError(JSON.stringify(error));
+            }).finally(() => {
+                closeModal();
             });
     }
 
@@ -40,11 +43,22 @@ const EditContactBtn: React.FC<Props> = ({ contactFormData }) => {
                 onClick={showModal}
                 disabled={isLoading}
             >
-                Edit
+                {isLoading ? (
+                    <LoadingCustomBtn />
+                ) : (
+                    'Edit'
+                )}
             </button>
             <div className='text-left'>
                 {
-                    modal && <ContactFormModal closeModal={closeModal} onSubmit={onSubmit} defaultValue={contactFormData} />
+                    modal &&
+                    <ContactFormModal
+                        onSubmit={onSubmit}
+                        closeModal={closeModal}
+                        defaultValue={contactFormData}
+                        isLoading={isLoading}
+                        text={'Update Contact'}
+                    />
                 }
             </div>
         </>

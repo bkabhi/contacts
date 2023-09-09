@@ -3,6 +3,7 @@ import { Contact } from '../models/Contacts';
 import { useDeleteContactMutation } from '../../../redux-toolkit/apiSlice';
 import { showSuccess } from '../../../utils/toast';
 import EditContactBtn from './EditContactBtn';
+import LoadingCustomBtn from '../../../common/Loader/LoadingCustomBtn';
 
 const getStatusClass = (status: string) => {
     return status === 'active' ? 'text-[#34D399]' : 'text-[#CD5D5D]';
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const ContactDetails: React.FC<Props> = ({ contact }) => {
-    const [deleteContact] = useDeleteContactMutation();
+    const [deleteContact, { isLoading }] = useDeleteContactMutation();
 
     const handleDelete = async (contactId: string) => {
         await deleteContact(contactId);
@@ -37,11 +38,18 @@ const ContactDetails: React.FC<Props> = ({ contact }) => {
                     <div className="flex flex-wrap gap-2 xl:gap-2 m-2 mt-8 xl:px-5 lg:px-5">
                         <EditContactBtn contactFormData={contact} />
                         <button
-                            className="inline-flex items-center justify-center rounded-md bg-meta-1 py-1 w-full text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+                            className={`inline-flex items-center justify-center rounded-md bg-meta-1 py-1 w-full text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-opacity-90'
+                                }`}
                             onClick={() => handleDelete(contact._id || '')}
+                            disabled={isLoading}
                         >
-                            Delete
+                            {isLoading ? (
+                                <LoadingCustomBtn />
+                            ) : (
+                                'Delete'
+                            )}
                         </button>
+
                     </div>
                 </div>
             </div>

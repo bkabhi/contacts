@@ -8,6 +8,8 @@ const CreateContactBtn: React.FC = () => {
     const [modal, setModal] = useState<boolean>(false);
 
     const [createNewContact, { isLoading }] = useCreateContactMutation();
+
+
     const closeModal = () => {
         setModal(false);
     }
@@ -24,6 +26,8 @@ const CreateContactBtn: React.FC = () => {
             })
             .catch((error: any) => {
                 showError(JSON.stringify(error));
+            }).finally(() => {
+                closeModal();
             });
     }
 
@@ -37,7 +41,13 @@ const CreateContactBtn: React.FC = () => {
                 Create Contact
             </button>
             {
-                modal && <ContactFormModal closeModal={closeModal} onSubmit={onSubmit} />
+                modal &&
+                <ContactFormModal
+                    onSubmit={onSubmit}
+                    closeModal={closeModal}
+                    isLoading={isLoading}
+                    text={'Create Contact'}
+                />
             }
         </>
     )

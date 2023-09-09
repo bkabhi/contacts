@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Contact } from "../../features/contacts/models/Contacts";
+import LoadingCustomBtn from "../../common/Loader/LoadingCustomBtn";
 
 interface Props {
   closeModal: () => void;
   onSubmit: (value: any) => void;
   defaultValue?: Contact;
+  isLoading: boolean;
+  text: string;
 }
 
-export const ContactFormModal: React.FC<Props> = ({ closeModal, onSubmit, defaultValue }) => {
+export const ContactFormModal: React.FC<Props> = ({ closeModal, onSubmit, defaultValue, isLoading, text }) => {
   const [formState, setFormState] = useState<Contact>(
     defaultValue || {
       firstName: "",
@@ -63,8 +66,6 @@ export const ContactFormModal: React.FC<Props> = ({ closeModal, onSubmit, defaul
     if (!validateForm()) return;
 
     onSubmit(formState);
-
-    closeModal();
   };
 
   return (
@@ -169,13 +170,18 @@ export const ContactFormModal: React.FC<Props> = ({ closeModal, onSubmit, defaul
           <div className="mt-6">
             <button
               type="submit"
+              disabled={isLoading}
               className="hover:bg-meta-3 bg-primary text-white px-4 py-2 rounded-lg focus:outline-none"
             >
-              Submit
+              {
+                isLoading ?
+                  <LoadingCustomBtn /> : text
+              }
             </button>
             <button
               type="button"
               onClick={closeModal}
+              disabled={isLoading}
               className="ml-2 text-gray-500 hover:text-red-500 dark:text-white focus:outline-none"
             >
               Cancel

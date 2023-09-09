@@ -1,10 +1,12 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Loader from './common/Loader';
 import routes from './routes';
 import ContactsPage from './pages/ContactsPage';
+import { ToastContainer } from 'react-toastify';
 
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 
@@ -37,6 +39,7 @@ function App() {
           ))}
         </Route>
       </Routes>
+      <ToastContainer />
     </>
   );
 }
