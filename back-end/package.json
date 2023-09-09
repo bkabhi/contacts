@@ -4,9 +4,7 @@
   "description": "frontyard-assignment",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
-    "build": "tsc",
-    "dev": "nodemon index.ts"
+    "start": "npx tsc --build && node -r dotenv-flow/config dist/index.js"
   },
   "author": "Abhijeet Kumar <bloggerbkabhi@gmail.com>",
   "license": "ISC",
