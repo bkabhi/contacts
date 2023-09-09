@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 
 import Loader from './common/Loader';
 import routes from './routes';
+import ContactsPage from './pages/ContactsPage';
 
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 
@@ -22,7 +23,7 @@ function App() {
 
       <Routes>
         <Route element={<DefaultLayout />}>
-          {/* <Route index element={<ECommerce />} /> */}
+          <Route index element={<ContactsPage />} />
           {routes.map(({ path, component: Component }) => (
             <Route
               key={path}

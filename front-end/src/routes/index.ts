@@ -3,6 +3,7 @@ import { rootService } from './RootService';
 
 const ChartsAndMaps = lazy(() => import('../pages/ChartsAndMapsPage'));
 const ContactsPage = lazy(() => import('../pages/ContactsPage'));
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
 const coreRoutes = [
   {
@@ -14,7 +15,12 @@ const coreRoutes = [
     path: rootService.ChartsAndMaps,
     title: 'ChartsAndMaps',
     component: ChartsAndMaps,
-  }
+  },
+  {
+    path: '/*',
+    title: 'Not Found',
+    component: NotFoundPage,
+  },
 ];
 
 const routes = [...coreRoutes];
